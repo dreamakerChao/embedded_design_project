@@ -1,6 +1,6 @@
 ```mermaid
 gantt
-    title Develop Plan
+    title Development Plan
     dateFormat  MM-DD
 		axisFormat  %m-%d	
 
