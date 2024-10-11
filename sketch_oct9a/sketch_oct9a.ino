@@ -18,11 +18,19 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 const unsigned int TRIG_PIN=52;
 const unsigned int ECHO_PIN=50;
 const  unsigned int BAUD_RATE=9600;
+const unsigned int threshold;
+float distance;
 
 //motor
 Stepper motor(300,8,9,10,11);
 int length=1000;
 int speed=200;
+
+//object
+int Id;
+
+//database
+Item* hashTable[TABLE_SIZE];
 
 void setup() {
   lcd.init();
@@ -37,7 +45,6 @@ void setup() {
   //motor.step(length);
 
   //set up the database
-  Item* hashTable[TABLE_SIZE];
   for (int i = 0; i < TABLE_SIZE; i++) {
     hashTable[i] = NULL;
   }
@@ -51,10 +58,22 @@ void setup() {
   insertItem(hashTable,8, "scientist_noodles", 3, 100);
   insertItem(hashTable,9, "snapu_cookies", 5, 100);
   insertItem(hashTable,10, "Soda", 5, 100);
+
+  Item* = NULL; 
 }
 
 void loop() {
-
+  distance = get_distance();
+  if(distance < threshold){
+    // object detection
+  }else{
+    Item = findItem(hashTable,Id);
+    print_lcd(Item->name,Item->price,Item->stock);
+    delay(1000);
+    move(500);
+    delay(500);
+    move(-500);
+  }
 }
 
 void print_lcd(char* name,int price,int stock){
@@ -81,6 +100,7 @@ float get_distance() {
   float distance= duration/29/2;
   if(duration==0){
     Serial.println("Warning: no pulse from sensor");
+    return NULL;
     }  
   else{
     Serial.print("distance to nearest object:");
